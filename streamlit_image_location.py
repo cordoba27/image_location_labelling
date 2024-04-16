@@ -5,6 +5,7 @@ import pandas as pd
 import zipfile
 import io
 import os
+import time
 from streamlit_folium import st_folium
 from folium.plugins import Geocoder
 from math import radians, sin, cos, sqrt, atan2
@@ -121,6 +122,7 @@ def main():
                 # Store the user's selection in the CSV file
                 df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
                 st.write(df)
+                time.sleep(5) 
 
                 # Move to the next image
                 current_index += 1
