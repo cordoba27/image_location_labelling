@@ -120,6 +120,7 @@ def main():
 
                 # Store the user's selection in the CSV file
                 df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
+                st.write(df)
 
                 # Move to the next image
                 current_index += 1
