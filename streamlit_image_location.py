@@ -48,8 +48,6 @@ def main():
 
         temp_folder = os.path.join(os.getcwd(), "temp_images")
 
-        st.write(df_csv.head(1))
-
         if uploaded_file is not None:
             # Extract images from the zip file
             with zipfile.ZipFile(uploaded_file, "r") as zip_ref:
@@ -114,6 +112,8 @@ def main():
 
                 # Calculate distance from pre-defined coordinates
                 filename = str(images[current_index]).split("\\")[-1]
+                st.write(filename)
+                st.write(str(row['filename']).split("\\")[-1])
                 for index, row in df_csv.iterrows():
                     if str(row['filename']).split("\\")[-1] == filename:
                         distance = calculate_distance(selected_latitude, selected_longitude, row['lat'], row['lon'])
@@ -121,11 +121,6 @@ def main():
 
                 # Store the user's selection in the CSV file
                 df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
-                # if current_index == 0:
-                #     df.to_csv(os.path.join(csv_folder, f"streamlit_results_{user_name}.csv"), mode='w', header=True, index=False)
-                # else:
-                #     df.to_csv(os.path.join(csv_folder, f"streamlit_results_{user_name}.csv"), mode='a', header=None, index=False)
-
 
                 # Move to the next image
                 current_index += 1
@@ -152,7 +147,7 @@ def main():
             if st.button("End"):
                 st.write("Thank you for your help!")
                 with open(filename, 'rb') as file:
-                    st.download_button(label='Download CSV', data=file, file_name=f'results_{user_name}.csv', mime='text/csv')
+                    st.download_button(label='Download CSV', data=df, file_name=f'results_{user_name}.csv', mime='text/csv')
                 st.stop()  # Stop the Streamlit app
 
 # Run the main function
