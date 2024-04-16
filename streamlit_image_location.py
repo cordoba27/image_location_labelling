@@ -9,7 +9,6 @@ from streamlit_folium import st_folium
 from folium.plugins import Geocoder
 from math import radians, sin, cos, sqrt, atan2
 
-os.chdir(os.path.dirname(__file__))
 
 def display_image(image):
     img = Image.open(image)
