@@ -113,8 +113,9 @@ def main():
                 # Calculate distance from pre-defined coordinates
                 filename = str(images[current_index]).split("\\")[-1]
                 st.write(filename)
-                st.write(str(row['filename']).split("\\")[-1])
+            
                 for index, row in df_csv.iterrows():
+                    st.write(str(row['filename']).split("\\")[-1])
                     if str(row['filename']).split("\\")[-1] == filename:
                         distance = calculate_distance(selected_latitude, selected_longitude, row['lat'], row['lon'])
                         st.info(f"Distance from ({row['lat']},{row['lon']}): {round(distance, 2)} km")
