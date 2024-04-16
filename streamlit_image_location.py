@@ -146,9 +146,16 @@ def main():
             # Add an "End" button
             if st.button("End"):
                 st.write("Thank you for your help!")
-                with open(filename, 'rb') as file:
-                    st.download_button(label='Download CSV', data=df, file_name=f'results_{user_name}.csv', mime='text/csv')
-                st.stop()  # Stop the Streamlit app
+                # Save DataFrame to CSV file
+                csv_filename = f"results_{user_name}.csv"
+                df.to_csv(csv_filename, index=False)
+
+                # Download the CSV file
+                st.download_button(label='Download CSV', data=open(csv_filename, 'rb'), file_name=csv_filename, mime='text/csv')
+
+                # Stop the Streamlit app
+                st.stop()
+
 
 # Run the main function
 if __name__ == '__main__':
