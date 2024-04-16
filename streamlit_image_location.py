@@ -37,7 +37,7 @@ def main():
     user_name = st.text_input("Please enter your name to continue:", key="name")
 
     # Load your images and their corresponding locations
-    df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
+    st.session_state.df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
 
     # Check if the name is provided
     if user_name:
@@ -120,8 +120,8 @@ def main():
                         st.info(f"Distance from ({row['lat']},{row['lon']}): {round(distance, 2)} km")
 
                 # Store the user's selection in the CSV file
-                df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
-                st.write(df)
+                st.session_state.df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
+                st.write(st.session_state.df)
                 time.sleep(3) 
 
                 # Move to the next image
@@ -154,7 +154,7 @@ def main():
                 def convert_df(df):
                     return df.to_csv(index=False).encode('utf-8')
 
-                csv = convert_df(df)
+                csv = convert_df(st.session_state.df)
 
                 st.download_button(
                     "Download CSV",
