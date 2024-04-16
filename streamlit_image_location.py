@@ -125,7 +125,6 @@ def main():
                 # Store the user's selection in the session state DataFrame
                 user_selections = st.session_state.user_selections
                 user_selections.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
-                st.write(user_selections)
                 time.sleep(3) 
 
                 # Move to the next image
@@ -156,6 +155,8 @@ def main():
                 st.write("Thank you for your help!")
                 # Save DataFrame to CSV file
                 csv_filename = f"results_{user_name}.csv"
+
+                st.write(user_selections)
 
                 csv = user_selections.to_csv(index=False).encode('utf-8')
 
