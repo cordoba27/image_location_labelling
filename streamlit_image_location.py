@@ -39,8 +39,6 @@ def main():
     if user_name:
         st.session_state.name_input_hidden = True
 
-        csv_folder = st.text_input(r"Select folder to store output CSV (e.g. C:\Users\b1084631\OneDrive - Universität Salzburg\Paper Image location extraction\Results)", key="csv_folder", value=r"C:\Users\b1084631\OneDrive - Universität Salzburg\Paper Image location extraction\Results")
-
         df_csv = pd.read_csv(r"flickr_images_metadata.csv", sep=",")
 
         st.markdown('**These pictures are from all around the world. Guess the location by simply clicking on the map and pressing "Submit". You can end the app by clicking "End".**')
@@ -49,7 +47,8 @@ def main():
         uploaded_file = st.file_uploader("Upload a zip file containing images", type="zip")
 
         temp_folder = os.path.join(os.getcwd(), "temp_images")
-        st.write(temp_folder)
+
+        st.write(df_csv.head(1))
 
         if uploaded_file is not None:
             # Extract images from the zip file
