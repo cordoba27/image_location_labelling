@@ -48,17 +48,18 @@ def main():
         # Upload the zip file containing images
         uploaded_file = st.file_uploader("Upload a zip file containing images", type="zip")
 
-        st.write(os.getcwd())
+        temp_folder = os.path.join(os.getcwd(), "temp_images")
+        st.write(temp_folder)
 
         if uploaded_file is not None:
             # Extract images from the zip file
             with zipfile.ZipFile(uploaded_file, "r") as zip_ref:
-                if not os.path.exists("temp_images"):
-                    os.mkdir("temp_images")
-                zip_ref.extractall("temp_images")
+                if not os.path.exists(temp_folder):
+                    os.mkdir(temp_folder)
+                zip_ref.extractall(temp_folder)
 
             # Load the extracted images
-            images = [os.path.join("temp_images", f) for f in os.listdir("temp_images") if f.endswith((".jpg", ".jpeg", ".png"))]
+            images = [os.path.join(temp_folder, f) for f in os.listdir(temp_folder) if f.endswith((".jpg", ".jpeg", ".png"))]
 
             # Load your images and their corresponding locations
             df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
