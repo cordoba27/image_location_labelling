@@ -48,6 +48,8 @@ def main():
         # Upload the zip file containing images
         uploaded_file = st.file_uploader("Upload a zip file containing images", type="zip")
 
+        st.write(os.getcwd())
+
         if uploaded_file is not None:
             # Extract images from the zip file
             with zipfile.ZipFile(uploaded_file, "r") as zip_ref:
