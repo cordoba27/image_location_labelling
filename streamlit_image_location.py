@@ -111,7 +111,7 @@ def main():
                     st.success(f"Stored position: {selected_latitude}, {selected_longitude}")
 
                 # Calculate distance from pre-defined coordinates
-                filename = str(images[current_index]).split("\\")[-1]
+                filename = str(images[current_index]).split("/")[-1]
                 st.write(filename)
             
                 for index, row in df_csv.iterrows():
