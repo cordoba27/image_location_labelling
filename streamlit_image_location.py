@@ -112,10 +112,8 @@ def main():
 
                 # Calculate distance from pre-defined coordinates
                 filename = str(images[current_index]).split("/")[-1]
-                st.write(filename)
             
                 for index, row in df_csv.iterrows():
-                    st.write(str(row['filename']).split("\\")[-1])
                     if str(row['filename']).split("\\")[-1] == filename:
                         distance = calculate_distance(selected_latitude, selected_longitude, row['lat'], row['lon'])
                         st.info(f"Distance from ({row['lat']},{row['lon']}): {round(distance, 2)} km")
@@ -149,10 +147,19 @@ def main():
                 st.write("Thank you for your help!")
                 # Save DataFrame to CSV file
                 csv_filename = f"results_{user_name}.csv"
-                df.to_csv(csv_filename, index=False)
 
-                # Download the CSV file
-                st.download_button(label='Download CSV', data=open(csv_filename, 'rb'), file_name=csv_filename, mime='text/csv')
+                def convert_df(df):
+                    return df.to_csv(index=False).encode('utf-8')
+
+                csv = convert_df(df)
+
+                st.download_button(
+                    "Download CSV",
+                    csv,
+                    csv_filename,
+                    "text/csv",
+                    key='download-csv'
+                    )
 
                 # Stop the Streamlit app
                 st.stop()
