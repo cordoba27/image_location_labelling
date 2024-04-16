@@ -163,7 +163,7 @@ def main():
                 def convert_df(df):
                     return df.to_csv(index=False).encode('utf-8')
 
-                csv = convert_df(global_df)
+                csv = convert_df(user_selections)
 
                 st.download_button(
                     "Download CSV",
@@ -172,7 +172,7 @@ def main():
                     "text/csv",
                     key='download-csv'
                     )
-
+                
                 # Stop the Streamlit app
                 st.stop()
 
