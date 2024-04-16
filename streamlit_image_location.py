@@ -134,8 +134,9 @@ def main():
 
                 # Display the next image
                 if current_index < len(images):
-                    with col1:
-                        display_image(images[current_index])
+                    if st.button("Show Next Image"):
+                        with col1:
+                            display_image(images[current_index])
                 else:
                     st.write('All images processed. Thank you!')
 
