@@ -36,6 +36,9 @@ def main():
     st.title("Guess the Location")
     user_name = st.text_input("Please enter your name to continue:", key="name")
 
+    # Load your images and their corresponding locations
+    df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
+
     # Check if the name is provided
     if user_name:
         st.session_state.name_input_hidden = True
@@ -58,9 +61,6 @@ def main():
 
             # Load the extracted images
             images = [os.path.join(temp_folder, f) for f in os.listdir(temp_folder) if f.endswith((".jpg", ".jpeg", ".png"))]
-
-            # Load your images and their corresponding locations
-            df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
 
             # Retrieve or initialize current index
             current_index = st.session_state.get("current_index", 0)
@@ -122,7 +122,7 @@ def main():
                 # Store the user's selection in the CSV file
                 df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
                 st.write(df)
-                time.sleep(5) 
+                time.sleep(3) 
 
                 # Move to the next image
                 current_index += 1
