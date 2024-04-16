@@ -30,14 +30,16 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     distance = 6371 * c  # Radius of the Earth in km
     return distance
 
+# Define a global variable to store the DataFrame
+global_df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
+
 def main():
+    global global_df
+
     # Display start page to get user's name
     st.set_page_config(layout="wide")
     st.title("Guess the Location")
     user_name = st.text_input("Please enter your name to continue:", key="name")
-
-    # Load your images and their corresponding locations
-    st.session_state.df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
 
     # Check if the name is provided
     if user_name:
@@ -119,9 +121,9 @@ def main():
                         distance = calculate_distance(selected_latitude, selected_longitude, row['lat'], row['lon'])
                         st.info(f"Distance from ({row['lat']},{row['lon']}): {round(distance, 2)} km")
 
-                # Store the user's selection in the CSV file
-                st.session_state.df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
-                st.write(st.session_state.df)
+                # Store the user's selection in the global DataFrame
+                global_df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
+                st.write(global_df)
                 time.sleep(3) 
 
                 # Move to the next image
@@ -130,12 +132,10 @@ def main():
                 # Update session state
                 st.session_state.current_index = current_index
 
-                # If there are more images, reload the page
                 # Display the next image
                 if current_index < len(images):
-                    if st.button("Show Next Image"):
-                        with col1:
-                            display_image(images[current_index])
+                    with col1:
+                        display_image(images[current_index])
                 else:
                     st.write('All images processed. Thank you!')
 
@@ -157,7 +157,7 @@ def main():
                 def convert_df(df):
                     return df.to_csv(index=False).encode('utf-8')
 
-                csv = convert_df(st.session_state.df)
+                csv = convert_df(global_df)
 
                 st.download_button(
                     "Download CSV",
