@@ -51,6 +51,7 @@ def main():
         if uploaded_file is not None:
             # Extract images from the zip file
             with zipfile.ZipFile(uploaded_file, "r") as zip_ref:
+                os.mkdir("temp_images")
                 zip_ref.extractall("temp_images")
 
             # Load the extracted images
