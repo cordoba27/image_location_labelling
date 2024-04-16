@@ -122,10 +122,10 @@ def main():
 
                 # Store the user's selection in the CSV file
                 df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
-                if current_index == 0:
-                    df.to_csv(os.path.join(csv_folder, f"streamlit_results_{user_name}.csv"), mode='w', header=True, index=False)
-                else:
-                    df.to_csv(os.path.join(csv_folder, f"streamlit_results_{user_name}.csv"), mode='a', header=None, index=False)
+                # if current_index == 0:
+                #     df.to_csv(os.path.join(csv_folder, f"streamlit_results_{user_name}.csv"), mode='w', header=True, index=False)
+                # else:
+                #     df.to_csv(os.path.join(csv_folder, f"streamlit_results_{user_name}.csv"), mode='a', header=None, index=False)
 
 
                 # Move to the next image
@@ -152,6 +152,8 @@ def main():
             # Add an "End" button
             if st.button("End"):
                 st.write("Thank you for your help!")
+                with open(filename, 'rb') as file:
+                    st.download_button(label='Download CSV', data=file, file_name=f'results_{user_name}.csv', mime='text/csv')
                 st.stop()  # Stop the Streamlit app
 
 # Run the main function
