@@ -67,6 +67,10 @@ def main():
             # Retrieve or initialize current index
             current_index = st.session_state.get("current_index", 0)
 
+            # Initialize DataFrame for storing user's selections
+            if 'user_selections' not in st.session_state:
+                st.session_state.user_selections = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
+
             if current_index >= len(images):
                 st.write('All images processed. Thank you!')
                 return
@@ -121,9 +125,10 @@ def main():
                         distance = calculate_distance(selected_latitude, selected_longitude, row['lat'], row['lon'])
                         st.info(f"Distance from ({row['lat']},{row['lon']}): {round(distance, 2)} km")
 
-                # Store the user's selection in the global DataFrame
-                global_df.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
-                st.write(global_df)
+                # Store the user's selection in the session state DataFrame
+                user_selections = st.session_state.user_selections
+                user_selections.loc[current_index] = [filename, selected_latitude, selected_longitude, distance]
+                st.write(user_selections)
                 time.sleep(3) 
 
                 # Move to the next image
