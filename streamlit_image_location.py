@@ -157,10 +157,7 @@ def main():
                 # Save DataFrame to CSV file
                 csv_filename = f"results_{user_name}.csv"
 
-                def convert_df(df):
-                    return df.to_csv(index=False).encode('utf-8')
-
-                csv = convert_df(user_selections)
+                csv = user_selections.to_csv(index=False).encode('utf-8')
 
                 st.download_button(
                     "Download CSV",
