@@ -131,8 +131,11 @@ def main():
                 st.session_state.current_index = current_index
 
                 # If there are more images, reload the page
+                # Display the next image
                 if current_index < len(images):
-                    st.rerun()
+                    if st.button("Show Next Image"):
+                        with col1:
+                            display_image(images[current_index])
                 else:
                     st.write('All images processed. Thank you!')
 
