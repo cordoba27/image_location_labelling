@@ -30,16 +30,16 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     distance = 6371 * c  # Radius of the Earth in km
     return distance
 
-# Define a global variable to store the DataFrame
-global_df = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
-
 def main():
-    global global_df
 
     # Display start page to get user's name
     st.set_page_config(layout="wide")
     st.title("Guess the Location")
     user_name = st.text_input("Please enter your name to continue:", key="name")
+
+    # Initialize DataFrame for storing user's selections
+    if 'user_selections' not in st.session_state:
+        st.session_state.user_selections = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
 
     # Check if the name is provided
     if user_name:
@@ -67,9 +67,6 @@ def main():
             # Retrieve or initialize current index
             current_index = st.session_state.get("current_index", 0)
 
-            # Initialize DataFrame for storing user's selections
-            if 'user_selections' not in st.session_state:
-                st.session_state.user_selections = pd.DataFrame(columns=['Image', 'Latitude', 'Longitude', 'Distance'])
 
             if current_index >= len(images):
                 st.write('All images processed. Thank you!')
