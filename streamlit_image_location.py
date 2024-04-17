@@ -134,13 +134,13 @@ def main():
                 # Update session state
                 st.session_state.current_index = current_index
 
-            # Display the next image
-            if current_index < len(images):
-                if st.button("Show Next Image"):
-                    with col1:
-                        display_image(images[current_index])
-            else:
-                st.write('All images processed. Thank you!')
+                # Display the next image
+                if current_index < len(images):
+                    if st.button("Show Next Image"):
+                        with col1:
+                            display_image(images[current_index])
+                else:
+                    st.write('All images processed. Thank you!')
 
             # Handle back button
             if back:
