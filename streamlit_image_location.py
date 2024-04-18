@@ -119,9 +119,14 @@ def main():
             
                 for index, row in df_csv.iterrows():
                     if str(row['filename']).split("\\")[-1] == filename:
-                        distance = calculate_distance(selected_latitude, selected_longitude, row['lat'], row['lon'])
-                        st.info(f"Distance from ({row['lat']},{row['lon']}): {round(distance, 2)} km")
+                        try:
+                            distance = calculate_distance(selected_latitude, selected_longitude, row['lat'], row['lon'])
+                            st.info(f"Distance from ({row['lat']},{row['lon']}): {round(distance, 2)} km")
+                        except:
+                            distance=None
+                            st.info(f"Error in distance calculation.")
                         st.info(f"Labelled {current_index+1} / {len(images)} images")
+
 
                 # Store the user's selection in the session state DataFrame
                 user_selections = st.session_state.user_selections
