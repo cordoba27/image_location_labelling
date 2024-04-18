@@ -146,6 +146,14 @@ def main():
                             display_image(images[current_index])
                 else:
                     st.write('All images processed. Thank you!')
+            
+            if skip:
+                # Move to the next image without storing the selection
+                current_index += 1
+                # Update session state
+                st.session_state.current_index = current_index
+                # Reload the page
+                st.rerun()
 
             # Handle back button
             if back:
