@@ -103,6 +103,9 @@ def main():
             # Add a submit button to the form
             submit = form.form_submit_button("Submit")
 
+            # Add a skip button
+            skip = form.form_submit_button("Skip")
+
             # Add a back button
             back = form.form_submit_button("Back")
 
