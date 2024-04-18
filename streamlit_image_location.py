@@ -11,9 +11,16 @@ from folium.plugins import Geocoder
 from math import radians, sin, cos, sqrt, atan2
 
 
-def display_image(image):
-    img = Image.open(image)
-    st.image(img, caption='Image', use_column_width=True, width=400)  # Adjust the width as needed
+def display_image(image, current_index):
+    try:
+        img = Image.open(image)
+        st.image(img, caption='Image', use_column_width=True, width=400)  # Adjust the width as needed
+    except:
+        current_index += 1
+        # Update session state
+        st.session_state.current_index = current_index
+        # Reload the page
+        st.rerun()
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     # Convert latitude and longitude from degrees to radians
@@ -75,7 +82,7 @@ def main():
             # Display the image
             col1, col2 = st.columns(2)
             with col1:
-                display_image(images[current_index])
+                display_image(images[current_index], current_index)
 
             # Create the map
             map_center = [0, 0] 
