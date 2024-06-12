@@ -191,7 +191,7 @@ def main():
 
             # Add an "End" button
             if st.button("End"):
-                st.write("Thank you for your help!")
+                st.write("Thank you for your help! Please download the CSV and send it to sebastian.schmidt@plus.ac.at :)")
                 # Save DataFrame to CSV file
                 csv_filename = f"results_{user_name}.csv"
 
