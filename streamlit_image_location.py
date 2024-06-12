@@ -76,8 +76,23 @@ def main():
 
 
             if current_index >= len(images):
-                st.write('All images processed. Thank you!')
-                return
+                st.write('All images processed. Thank you! Please download the CSV and send it to sebastian.schmidt@plus.ac.at :)')
+
+                # Save DataFrame to CSV file
+                csv_filename = f"results_{user_name}.csv"
+
+                csv = st.session_state.user_selections.to_csv(index=False).encode('utf-8')
+
+                st.download_button(
+                    "Download CSV",
+                    csv,
+                    csv_filename,
+                    "text/csv",
+                    key='download-csv'
+                    )
+                
+                # Stop the Streamlit app
+                st.stop()
 
             # Display the image
             col1, col2 = st.columns(2)
