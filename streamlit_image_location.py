@@ -39,7 +39,6 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 
 def main():
 
-    csv_filename = f"results_{user_name}.csv"
 
     # Display start page to get user's name
     st.set_page_config(layout="wide")
@@ -53,6 +52,7 @@ def main():
     # Check if the name is provided
     if user_name:
         st.session_state.name_input_hidden = True
+        csv_filename = f"results_{user_name}.csv"
 
         df_csv = pd.read_csv(r"flickr_images_metadata.csv", sep=",")
 
