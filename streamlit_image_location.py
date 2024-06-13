@@ -39,6 +39,8 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 
 def main():
 
+    csv_filename = f"results_{user_name}.csv"
+
     # Display start page to get user's name
     st.set_page_config(layout="wide")
     st.title("Guess the Location")
@@ -79,8 +81,6 @@ def main():
                 st.write('All images processed. Thank you! Please download the CSV and send it to sebastian.schmidt@plus.ac.at :)')
 
                 # Save DataFrame to CSV file
-                csv_filename = f"results_{user_name}.csv"
-
                 csv = st.session_state.user_selections.to_csv(index=False).encode('utf-8')
 
                 st.download_button(
@@ -128,8 +128,15 @@ def main():
             # Add a skip button
             skip = form.form_submit_button("Skip")
 
-            # Add a back button
-            back = form.form_submit_button("Back")
+
+            csv = st.session_state.user_selections.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                    "Download CSV",
+                    csv,
+                    csv_filename,
+                    "text/csv",
+                    key='download-csv'
+                    )
 
             # Handle form submission
             if submit:
@@ -193,8 +200,6 @@ def main():
             if st.button("End"):
                 st.write("Thank you for your help! Please download the CSV and send it to sebastian.schmidt@plus.ac.at :)")
                 # Save DataFrame to CSV file
-                csv_filename = f"results_{user_name}.csv"
-
                 csv = st.session_state.user_selections.to_csv(index=False).encode('utf-8')
 
                 st.download_button(
