@@ -187,15 +187,6 @@ def main():
                 # Reload the page
                 st.rerun()
 
-            # Handle back button
-            if back:
-                # If the user clicks back, decrease the current index to go back to the previous image
-                current_index -= 1
-                # Update session state
-                st.session_state.current_index = current_index
-                # Reload the page
-                st.rerun()
-
             # Add an "End" button
             if st.button("End"):
                 st.write("Thank you for your help! Please download the CSV and send it to sebastian.schmidt@plus.ac.at :)")
